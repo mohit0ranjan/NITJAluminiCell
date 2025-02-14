@@ -5,7 +5,8 @@ import {
   Users, 
   Award, 
   BookOpen, 
-  ArrowRight, 
+  ArrowRight,
+  ArrowLeft,
   Building2, 
   Globe2, 
   Newspaper,
@@ -20,12 +21,150 @@ import {
   Trophy,
   Heart,
   Menu,
-  X
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  MapPin as Location,
+  ExternalLink,
+  Video,
+  Play,
+  MessageCircle
 } from 'lucide-react';
+
+const notableAlumni = [
+  {
+    name: "Dr. Rajesh Kumar",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
+    role: "CEO, TechVision Global",
+    batch: "1995",
+    department: "Computer Science",
+    achievements: [
+      "Forbes 30 Under 30",
+      "Built $1B Company",
+      "100+ Patents"
+    ],
+    description: "Pioneering innovation in AI and robotics, leading one of the fastest-growing tech companies globally.",
+    socialLinks: {
+      linkedin: "#",
+      twitter: "#"
+    }
+  },
+  {
+    name: "Dr. Priya Sharma",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
+    role: "Research Director, NASA",
+    batch: "1998",
+    department: "Aerospace Engineering",
+    achievements: [
+      "Presidential Medal",
+      "Space Innovation Award",
+      "Published in Nature"
+    ],
+    description: "Leading groundbreaking research in space exploration and satellite technology at NASA.",
+    socialLinks: {
+      linkedin: "#",
+      twitter: "#"
+    }
+  },
+  {
+    name: "Amit Patel",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop",
+    role: "Founder & CTO, CloudScale",
+    batch: "2005",
+    department: "Electronics",
+    achievements: [
+      "Tech Innovator Award",
+      "50M+ Users",
+      "YCombinator Alumni"
+    ],
+    description: "Revolutionizing cloud computing with innovative solutions used by Fortune 500 companies.",
+    socialLinks: {
+      linkedin: "#",
+      twitter: "#"
+    }
+  }
+];
+
+const upcomingEvents = [
+  {
+    id: 1,
+    title: "Annual Alumni Meet 2025",
+    date: "March 15, 2025",
+    time: "10:00 AM IST",
+    location: "NITJ Campus",
+    description: "Join us for the grand reunion of NITJ alumni. Connect with old friends, share experiences, and celebrate the NITJ legacy.",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop",
+    registrationLink: "#"
+  },
+  {
+    id: 2,
+    title: "Global Alumni Summit",
+    date: "April 20, 2025",
+    time: "6:00 PM IST",
+    location: "Virtual Event",
+    description: "A virtual gathering of NITJ alumni from around the world discussing innovation, leadership, and future technologies.",
+    image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=400&fit=crop",
+    registrationLink: "#"
+  },
+  {
+    id: 3,
+    title: "Alumni-Student Mentorship Program",
+    date: "May 1, 2025",
+    time: "2:00 PM IST",
+    location: "Hybrid Event",
+    description: "Bridge the gap between academia and industry through our mentorship program. Share your experience with current students.",
+    image: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?w=800&h=400&fit=crop",
+    registrationLink: "#"
+  }
+];
+
+const alumniTalks = [
+  {
+    id: 1,
+    title: "Innovation in AI and Machine Learning",
+    speaker: "Dr. Rajesh Kumar",
+    role: "AI Research Lead, Google",
+    batch: "1995",
+    date: "February 28, 2025",
+    time: "5:00 PM IST",
+    thumbnail: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=400&fit=crop",
+    description: "Exploring the latest trends in AI and their impact on future technologies.",
+    registrationLink: "#",
+    videoLink: "#"
+  },
+  {
+    id: 2,
+    title: "Entrepreneurship Journey: From NITJ to Silicon Valley",
+    speaker: "Priya Sharma",
+    role: "Founder & CEO, TechStart",
+    batch: "2000",
+    date: "March 5, 2025",
+    time: "6:30 PM IST",
+    thumbnail: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=400&fit=crop",
+    description: "Learn about building successful startups and navigating the entrepreneurial landscape.",
+    registrationLink: "#",
+    videoLink: "#"
+  },
+  {
+    id: 3,
+    title: "Future of Sustainable Engineering",
+    speaker: "Dr. Amit Patel",
+    role: "Chief Sustainability Officer, Tesla",
+    batch: "1998",
+    date: "March 12, 2025",
+    time: "4:00 PM IST",
+    thumbnail: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?w=800&h=400&fit=crop",
+    description: "Discussing sustainable engineering practices and their impact on climate change.",
+    registrationLink: "#",
+    videoLink: "#"
+  }
+];
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentAlumni, setCurrentAlumni] = useState(0);
 
   const slides = [
     {
@@ -52,71 +191,35 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const achievements = [
-    {
-      number: "10,000+",
-      label: "Alumni Worldwide",
-      icon: Users
-    },
-    {
-      number: "500+",
-      label: "Companies Hiring",
-      icon: Building2
-    },
-    {
-      number: "1000+",
-      label: "Success Stories",
-      icon: Trophy
-    },
-    {
-      number: "50+",
-      label: "Countries Represented",
-      icon: Globe2
-    }
-  ];
+  const nextAlumni = () => {
+    setCurrentAlumni((prev) => (prev + 1) % notableAlumni.length);
+  };
 
-  const testimonials = [
-    {
-      name: "Rajesh Kumar",
-      batch: "2015",
-      role: "Senior Software Engineer at Google",
-      quote: "NITJ gave me the foundation to build a successful career in tech. The alumni network has been invaluable.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
-    },
-    {
-      name: "Priya Singh",
-      batch: "2018",
-      role: "Product Manager at Microsoft",
-      quote: "The mentorship from alumni helped me navigate my career path. Forever grateful to the NITJ community.",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
-    },
-    {
-      name: "Amit Patel",
-      batch: "2012",
-      role: "Founder & CEO, TechStart",
-      quote: "NITJ's entrepreneurial spirit and network helped me build my startup from ground up.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
-    }
-  ];
+  const prevAlumni = () => {
+    setCurrentAlumni((prev) => (prev - 1 + notableAlumni.length) % notableAlumni.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(nextAlumni, 8000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div className="space-y-12 animate-fade-in">
+    <div className="space-y-1 animate-fade-in">
       {/* Navigation Bar */}
-      <nav className="bg-[#1a237e] text-white shadow-lg fixed top-0 left-0 right-0 z-50 py-5">
-        {/* Upper bar with NITJ Alumni Cell text */}
-        
-        
+      <nav className="bg-[#1a237e] text-white shadow-lg fixed top-0 left-0 right-0 z-50 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo and Title */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-5">
               <img 
                 src="https://res.cloudinary.com/dtu19fejc/image/upload/v1739470943/Logo_of_NIT_Jalandhar_siybqg.png" 
                 alt="NITJ Logo" 
-                className="h-12 w-auto"
+                className="h-16 w-auto"
               />
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold">NITJ Alumni Cell</h1>
+                <h1 className="text-xl font-bold">NITJ Alumni Association (NITJAA)</h1>
+                <h1 className="text-xl font-bold">Dr. BR Ambedkar National Institute of Technology Jalandhar</h1>
               </div>
             </div>
 
@@ -124,7 +227,7 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-8">
               <Link to="/" className="text-white hover:text-indigo-200 font-medium">Home</Link>
               <Link to="/about" className="text-white hover:text-indigo-200 font-medium">About</Link>
-              <Link to="/events" className="text-white hover:text-indigo-200 font-medium">Events</Link>
+              <Link to="/events" className="text-white hover:text-indigo-200 font-medium">Awards</Link>
               <Link to="/gallery" className="text-white hover:text-indigo-200 font-medium">Gallery</Link>
               <Link to="/contact" className="text-white hover:text-indigo-200 font-medium">Contact</Link>
               <Link 
@@ -246,166 +349,246 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Achievement Numbers */}
-        <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 py-16 px-8 mx-20 rounded-2xl shadow-xl">
+        {/* Events Section */}
+        <div className="px-8 py-16 bg-gradient-to-br from-indigo-50 to-white">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {achievements.map((achievement, index) => (
-                <div 
-                  key={index}
-                  className="text-center text-white p-6 transform hover:scale-105 transition-transform duration-300"
-                >
-                  <achievement.icon className="h-12 w-12 mx-auto mb-4 animate-float" />
-                  <div className="text-4xl font-bold mb-2">{achievement.number}</div>
-                  <div className="text-indigo-200">{achievement.label}</div>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
+              <p className="text-lg text-gray-600">Join us for these exciting alumni events and activities</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {upcomingEvents.map((event) => (
+                <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                  <img 
+                    src={event.image} 
+                    alt={event.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{event.title}</h3>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center text-gray-600">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        <span>{event.date}</span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <Clock className="h-4 w-4 mr-2" />
+                        <span>{event.time}</span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <Location className="h-4 w-4 mr-2" />
+                        <span>{event.location}</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 mb-4">{event.description}</p>
+                    <a
+                      href={event.registrationLink}
+                      className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    >
+                      Register Now
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 m-20">
-          {[
-            {
-              icon: <GraduationCap className="h-6 w-6 text-[#1a237e]" />,
-              title: "Digital Certificates",
-              description: "Secure and verifiable digital certificates for all alumni"
-            },
-            {
-              icon: <Users className="h-6 w-6 text-[#1a237e]" />,
-              title: "Alumni Network",
-              description: "Connect with fellow alumni and expand your professional network"
-            },
-            {
-              icon: <Award className="h-6 w-6 text-[#1a237e]" />,
-              title: "Achievements",
-              description: "Showcase and celebrate alumni achievements and success stories"
-            },
-            {
-              icon: <BookOpen className="h-6 w-6 text-[#1a237e]" />,
-              title: "Resources",
-              description: "Access exclusive resources and opportunities for alumni"
-            }
-          ].map((feature, index) => (
-            <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:cursor-pointer transform hover:scale-105 transition-all duration-300">
-              <div className="w-12 h-12 bg-[#1a237e]/10 rounded-lg flex items-center justify-center mb-4">
-                {feature.icon}
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+        {/* Notable Alumni Section */}
+        <div className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-900 py-20 px-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop')] opacity-10 bg-cover bg-center" />
+          
+          <div className="max-w-7xl mx-auto relative">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">Notable Alumni</h2>
+              <p className="text-indigo-200 text-lg">Meet our distinguished alumni making waves globally</p>
             </div>
-          ))}
-        </div>
 
-        {/* Testimonials */}
-        <div className="bg-gray-50 py-16 px-8 mx-20 rounded-2xl">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Alumni Success Stories</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={index}
-                className="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            <div className="relative">
+              {/* Navigation Buttons */}
+              <button
+                onClick={prevAlumni}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300"
               >
-                <div className="flex items-center mb-4">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-500">Batch of {testimonial.batch}</p>
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={nextAlumni}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+
+              {/* Alumni Cards */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-4xl bg-white">
+                  <div className="relative h-[600px]">
+                    {notableAlumni.map((alumni, index) => (
+                      <div
+                        key={index}
+                        className={`absolute inset-0 transition-all duration-700 transform ${
+                          index === currentAlumni
+                            ? 'opacity-100 translate-x-0'
+                            : index < currentAlumni
+                            ? 'opacity-0 -translate-x-full'
+                            : 'opacity-0 translate-x-full'
+                        }`}
+                      >
+                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 h-full flex flex-col md:flex-row items-center gap-8 border border-white/10">
+                          {/* Image Section */}
+                          <div className="w-full md:w-1/2">
+                            <div className="relative group">
+                              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+                              <img
+                                src={alumni.image}
+                                alt={alumni.name}
+                                className="relative rounded-lg w-full h-[400px] object-cover"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Content Section */}
+                          <div className="w-full md:w-1/2 text-black space-y-6">
+                            <div>
+                              <h3 className="text-3xl font-bold mb-2">{alumni.name}</h3>
+                              <p className="text-black-200 text-lg">{alumni.role}</p>
+                            </div>
+
+                            <div className="space-y-2">
+                              <p className="text-grey-200">
+                                <span className="font-semibold">Batch:</span> {alumni.batch}
+                              </p>
+                              <p className="text-grey-200">
+                                <span className="font-semibold">Department:</span> {alumni.department}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="text-lg font-semibold mb-2">Key Achievements</h4>
+                              <ul className="space-y-2">
+                                {alumni.achievements.map((achievement, i) => (
+                                  <li key={i} className="flex items-center text-grey-200">
+                                    <Award className="h-5 w-5 mr-2 text-grey-400" />
+                                    {achievement}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <p className="text-black-200">{alumni.description}</p>
+
+                            <div className="flex items-center space-x-4">
+                              <a
+                                href={alumni.socialLinks.linkedin}
+                                className="text-indigo-400 hover:text-black transition-colors"
+                              >
+                                <Linkedin className="h-6 w-6" />
+                              </a>
+                              <a
+                                href={alumni.socialLinks.twitter}
+                                className="text-indigo-400 hover:text-black transition-colors"
+                              >
+                                <Twitter className="h-6 w-6" />
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <p className="text-gray-600 mb-4">{testimonial.quote}</p>
-                <p className="text-sm text-indigo-600 font-medium">{testimonial.role}</p>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* About Section */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden m-20">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 flex flex-col justify-center">
-              <h2 className="text-3xl font-bold mb-4 text-[#1a237e]">About NIT Jalandhar</h2>
-              <p className="text-gray-600 mb-6">
-                Dr B R Ambedkar National Institute of Technology Jalandhar is one of the thirty-one NITs of the country. 
-                The institute was established in the year 1987 as Regional Engineering College and was given the status of 
-                National Institute of Technology in 2002.
-              </p>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center transform hover:scale-105 transition-all duration-300">
-                  <Building2 className="h-8 w-8 text-[#1a237e] mx-auto mb-2" />
-                  <div className="font-bold text-xl text-[#1a237e]">1987</div>
-                  <div className="text-sm text-gray-600">Established</div>
-                </div>
-                <div className="text-center transform hover:scale-105 transition-all duration-300">
-                  <Building2 className="h-8 w-8 text-[#1a237e] mx-auto mb-2" />
-                  <div className="font-bold text-xl text-[#1a237e]">18+</div>
-                  <div className="text-sm text-gray-600">Departments</div>
-                </div>
-                <div className="text-center transform hover:scale-105 transition-all duration-300">
-                  <Users className="h-8 w-8 text-[#1a237e] mx-auto mb-2" />
-                  <div className="font-bold text-xl text-[#1a237e]">5000+</div>
-                  <div className="text-sm text-gray-600">Students</div>
-                </div>
+              {/* Dots Navigation */}
+              <div className="flex justify-center space-x-2 mt-8">
+                {notableAlumni.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentAlumni(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentAlumni
+                        ? 'bg-white scale-125'
+                        : 'bg-white/50 hover:bg-white/75'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
-            <div className="relative h-[400px]">
-              <img
-                src="https://images.unsplash.com/photo-1562774053-701939374585?w=1920&h=1080&fit=crop"
-                alt="Campus"
-                className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-all duration-500"
-              />
+          </div>
+        </div>
+
+        {/* Alumni Talks Section */}
+        <div className="px-8 py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Alumni Talks</h2>
+              <p className="text-lg text-gray-600">Learn from the experiences of our distinguished alumni</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {alumniTalks.map((talk) => (
+                <div key={talk.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                  <div className="relative">
+                    <img 
+                      src={talk.thumbnail} 
+                      alt={talk.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                      <Play className="h-12 w-12 text-white opacity-80" />
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">{talk.title}</h3>
+                        <p className="text-indigo-600 font-medium">{talk.speaker}</p>
+                        <p className="text-gray-600 text-sm">{talk.role}</p>
+                      </div>
+                      <span className="bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 rounded">
+                        {talk.batch} Batch
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center text-gray-600">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        <span>{talk.date}</span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <Clock className="h-4 w-4 mr-2" />
+                        <span>{talk.time}</span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-600 mb-4">{talk.description}</p>
+                    
+                    <div className="flex space-x-3">
+                      <a
+                        href={talk.registrationLink}
+                        className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                      >
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        Join Discussion
+                      </a>
+                      <a
+                        href={talk.videoLink}
+                        className="inline-flex items-center px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors"
+                      >
+                        <Video className="h-4 w-4 mr-2" />
+                        Watch
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* News & Updates */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 m-20">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-[#1a237e]">Latest Updates</h2>
-            <Link to="#" className="text-[#1a237e] hover:text-[#283593] flex items-center">
-              View All <ArrowRight className="h-4 w-4 ml-1" />
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Annual Alumni Meet 2025",
-                date: "March 15, 2025",
-                description: "Join us for the grand reunion celebrating decades of excellence",
-                icon: Calendar
-              },
-              {
-                title: "New Mentorship Program",
-                date: "February 28, 2025",
-                description: "Connect with current students and share your industry experience",
-                icon: Heart
-              },
-              {
-                title: "Global Alumni Awards",
-                date: "February 20, 2025",
-                description: "Nominations open for outstanding alumni achievements",
-                icon: Trophy
-              }
-            ].map((news, index) => (
-              <div 
-                key={index} 
-                className="bg-gray-50 rounded-xl p-6 transform hover:scale-105 transition-all duration-300 cursor-pointer"
-              >
-                <news.icon className="h-8 w-8 text-[#1a237e] mb-4" />
-                <h3 className="font-semibold mb-2">{news.title}</h3>
-                <p className="text-sm text-gray-500 mb-2">{news.date}</p>
-                <p className="text-gray-600">{news.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Enhanced Footer */}
+        {/* Footer */}
         <footer className="bg-gray-900 text-white py-16">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -497,7 +680,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+             </div>
 
             <div className="border-t border-gray-800 mt-12 pt-8">
               <div className="flex flex-col md:flex-row justify-between items-center">

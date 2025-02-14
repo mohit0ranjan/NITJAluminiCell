@@ -54,83 +54,55 @@ const Login = () => {
       setLoading(false);
     }
   };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-indigo-100 flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-grid-black/[0.02] -z-1" />
-      <div className="container mx-auto px-4 relative">
-        <div className="flex flex-row items-center justify-center space-x-12">
-          
-          {/* Left Side: Login Form */}
-          <div className="flex flex-col items-start justify-center space-y-8 w-1/2 ml-20 animate-slide-in-left">
-            <div className="sm:w-full sm:max-w-md stagger-animation">
-              <div className="flex justify-center animate-fade-in">
-                <Link to="/" className="flex items-center space-x-2 hover-scale">
-                  <GraduationCap className="h-12 w-12 text-indigo-600 animate-float" />
-                  <span className="text-2xl font-bold text-gray-900">NITJ Alumni</span>
-                </Link>
+    <div className="min-h-screen flex">
+      {/* Left Side: Background Image */}
+      <div className="w-1/2 bg-cover bg-center hidden lg:block animate-slide-in-left" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1607013407627-6ee814329547?q=80&w=1564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}></div>
+
+      {/* Right Side: Login Form */}
+      <div className="w-1/2 flex items-center justify-center px-10 animate-slide-in-right">
+        <div className="max-w-md w-full space-y-6">
+          <div className="text-center">
+            <Link to="/" className="flex items-center justify-center space-x-2">
+              <GraduationCap className="h-12 w-12 text-indigo-600 animate-float" />
+              <span className="text-2xl font-bold text-gray-900 ">NITJ Alumni</span>
+            </Link>
+            <h2 className="mt-4 text-3xl font-extrabold text-gray-900 animate-slide-up">Welcome Back</h2>
+            <p className="mt-2 text-sm text-gray-600 animate-fade-in">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-indigo-600 hover:text-indigo-500 ">
+                Create one now
+              </Link>
+            </p>
+          </div>
+
+          <div className="bg-white p-8 shadow-lg rounded-lg w-full animate-slide-up">
+            {error && <div className="mb-4 text-red-600">{error}</div>}
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                />
               </div>
-              <h2 className="mt-4 text-3xl font-extrabold text-gray-900 text-center animate-slide-up">
-                Welcome Back
-              </h2>
-              <p className="mt-2 text-sm text-gray-600 text-center animate-fade-in">
-                Don't have an account?{' '}
-                <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500 hover-scale inline-block">
-                  Create one now
-                </Link>
-              </p>
-            </div>
 
-            <div className="sm:w-full sm:max-w-md mb-5 animate-scale-in">
-              <div className="bg-white/80 backdrop-blur-lg py-8 px-4 shadow-2xl rounded-2xl sm:px-10 mb-5 hover:shadow-xl transition-all duration-300">
-                {error && (
-                  <div className="mb-5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md animate-shake">
-                    {error}
-                  </div>
-                )}
-                {resetEmailSent && (
-                  <div className="mb-5 bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-md">
-                    Password reset email sent! Please check your inbox.
-                  </div>
-                )}
-                <form className="space-y-9 stagger-animation" onSubmit={handleSubmit}>
-                  <div className="animate-slide-up">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                      Email address
-                    </label>
-                    <div className="mt-1 group">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 group-hover:border-indigo-400"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="animate-slide-up">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                      Password
-                    </label>
-                    <div className="mt-1 group">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 group-hover:border-indigo-400"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col space-y-3 animate-slide-up">
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 animate-slide-up">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                />
+              </div>
+              <div className="flex flex-col space-y-3 animate-slide-up">
                     <button
                       type="submit"
                       disabled={loading}
@@ -161,18 +133,8 @@ const Login = () => {
                       Forgot your password?
                     </button>
                   </div>
-                </form>
-              </div>
-            </div>
-          </div>
 
-          {/* Right Side: Image */}
-          <div className="w-1/2 hidden md:flex justify-center animate-slide-in-right">
-            <img 
-              src="/pic.jpg" 
-              alt="Login Illustration" 
-              className="w-300 h-500 object-cover rounded-lg shadow-2xl mr-20 hover-scale"
-            />
+            </form>
           </div>
         </div>
       </div>

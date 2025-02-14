@@ -143,8 +143,8 @@ const Register = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}>
-        <div className="h-full w-full bg-indigo-900 bg-opacity-20 backdrop-blur-sm flex items-center justify-center">
-          <div className="text-white text-center p-12 glass-effect rounded-2xl m-8 animate-float">
+        <div className="h-full w-full bg-opacity-50 flex items-center justify-center">
+          <div className="text-black text-center p-12 glass-effect rounded-2xl m-8 animate-float">
             <h2 className="text-4xl font-bold mb-4">Join Our Alumni Network</h2>
             <p className="text-lg">Connect with fellow graduates and stay updated with the latest opportunities</p>
           </div>
